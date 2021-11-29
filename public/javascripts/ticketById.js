@@ -5,8 +5,8 @@ $(document).ready(function(){
             url: "/getTicketInfoById/" + $("#ticket_id").val(),
             type: 'GET',
             success: function(data){
-                var str = JSON.stringify(data.ticket, null, 2);
-                $("#ticket_info").text(str);
+                const str = JSON.stringify(data, null, 2);
+                $("#ticket_info").text(str.replaceAll("\\\\n", ""));
             },
             error: function(xhr) {
                 alert(xhr.responseText);
