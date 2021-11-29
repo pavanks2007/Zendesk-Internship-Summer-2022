@@ -56,10 +56,14 @@ function getAllTickets(current_page) {
                     $("#results").append('<pre class="content"> <p>' + JSON.stringify(element, null, 2) + '</p> </pre>');
                     $("#button_" + index).on("click", function () {
                         this.classList.toggle("active");
-                        var content = this.nextElementSibling;
+                        const content = this.nextElementSibling;
                         if (content.style.maxHeight) {
                             content.style.maxHeight = null;
                         } else {
+                            $(".collapsible").each(function(index, element){
+                                const tempContent = this.nextElementSibling;
+                                tempContent.style.maxHeight = null;
+                            });
                             content.style.maxHeight = content.scrollHeight + "px";
                         }
                         this.classList.toggle("active");
