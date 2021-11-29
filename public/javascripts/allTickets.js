@@ -4,20 +4,30 @@ $(document).ready(function(){
     updateCurrentPageDisplay(current_page);
 
     $('#search-id-button').click(function () {
-        if(getAllTickets(1)) current_page = 1;
-        updateCurrentPageDisplay(current_page);
+        getAllTickets(1).done(function(result) {
+            if(result) {
+                current_page = 1;
+                updateCurrentPageDisplay(current_page);
+            }
+        });
     });
 
     $('#previous_page').click(function () {
-        current_page -= 1;
-        if(getAllTickets(current_page)) current_page += 1;
-        updateCurrentPageDisplay(current_page);
+        getAllTickets(current_page - 1).done(function(result) {
+            if(result) {
+                current_page -= 1;
+                updateCurrentPageDisplay(current_page);
+            }
+        });
     });
 
     $('#next_page').click(function () {
-        current_page += 1;
-        if(getAllTickets(current_page)) current_page -= 1;
-        updateCurrentPageDisplay(current_page);
+        getAllTickets(current_page + 1).done(function(result) {
+            if(result) {
+                current_page += 1;
+                updateCurrentPageDisplay(current_page);
+            }
+        });
     });
 });
 
@@ -26,18 +36,23 @@ function updateCurrentPageDisplay(current_page) {
 }
 
 function getAllTickets(current_page) {
+    let deferred = $.Deferred();
+    let bool = false;
     $.ajax({
         url: "/getAllTickets/" + current_page + "/" + $("#number_of_tickets").val(),
         type: 'GET',
         success: function(data){
             const str = JSON.stringify(data, null, 2);
             $("#tickets").text(str);
-            return true;
+            bool = true;
         },
         error: function(xhr) {
             console.log(xhr.responseText);
             alert(xhr.responseText);
-            return false;
+        },
+        complete: function() {
+            deferred.resolve(bool);
         }
     });
+    return deferred.promise();
 }
