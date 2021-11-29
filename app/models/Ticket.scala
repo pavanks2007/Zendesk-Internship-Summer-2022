@@ -12,11 +12,12 @@ object Ticket {
 
   private val fullToken = ConfigFactory.load().getString("zendesk.fullToken")
 
-  def getTicketsWithPageLimit(pageLimit: Int = 25, pageNumber: Int): Try[JsValue] =
+  def getTicketsWithPageLimit(pageNumber: Int, pageLimit: Int): Try[JsValue] = {
     getRequest(
       url = s"https://$subDomain/api/v2/tickets.json?per_page=$pageLimit&page=$pageNumber",
       fullToken
     )
+  }
 
   def getTicketInfoById(ticketId: Int): Try[JsValue] = {
     getRequest(

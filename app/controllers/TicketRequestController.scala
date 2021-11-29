@@ -2,7 +2,6 @@ package controllers
 
 import play.api.mvc._
 import models.Ticket
-import play.api.libs.json.{JsObject, JsValue}
 
 import javax.inject._
 import scala.util.{Failure, Success}
@@ -15,8 +14,13 @@ class TicketRequestController @Inject()(cc: ControllerComponents, val configurat
     Ok(views.html.allTickets())
   }
 
-  def getAllTickets: Action[AnyContent] = Action {
-    Ok(views.html.allTickets())
+  def getAllTickets(pageNumber: Int, pageLimit: Int = 25): Action[AnyContent] = Action {
+    Ticket.getTicketsWithPageLimit(pageNumber, pageLimit) match {
+      case Success(value) =>
+        Ok(value)
+      case Failure(exception) =>
+        BadRequest(exception.getMessage)
+    }
   }
 
   def displayTicketInfoByIdPage: Action[AnyContent] = Action {
