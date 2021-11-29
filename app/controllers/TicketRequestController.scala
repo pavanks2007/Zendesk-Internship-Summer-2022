@@ -5,6 +5,7 @@ import models.Ticket
 import play.api.libs.json._
 
 import javax.inject._
+import scala.collection.immutable.ListMap
 import scala.util.{Failure, Success}
 
 
@@ -40,7 +41,7 @@ class TicketRequestController @Inject()(cc: ControllerComponents, val configurat
 
   def extractRequiredInfoFromTicket(ticket: JsValue): JsValue = {
     Json.toJson(
-      Map(
+      ListMap(
         "id" -> (ticket \ "id").get.toString(),
         "type" -> removeUnnecessaryCharacters((ticket \ "type").get.toString()),
         "subject" -> removeUnnecessaryCharacters((ticket \ "subject").get.toString()),

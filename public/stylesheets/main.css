@@ -126,14 +126,6 @@ dd.info{color:#888;font-size:12px;}
 dd.error{color:#c00;}
 aside a[href^="http"]:after,.doc a[href^="http"]:after{content:url(/assets/images/external.png);vertical-align:middle;margin-left:5px;}
 
-/*.collapsible:after {*/
-/*    content: '\02795'; !* Unicode character for "plus" sign (+) *!*/
-/*}*/
-
-/*.active:after {*/
-/*    content: "\2796"; !* Unicode character for "minus" sign (-) *!*/
-/*}*/
-
 .collapsible {
     background-color: #777;
     color: white;
