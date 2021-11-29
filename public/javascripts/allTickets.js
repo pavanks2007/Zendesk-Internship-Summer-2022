@@ -52,7 +52,7 @@ function getAllTickets(current_page) {
                 for (let index = 0; index < parsedData.length; ++index) {
                     const element = parsedData[index];
                     const ticketHeading = "id: " + element.id + "    subject: " + element.subject;
-                    $("#results").append('<button class="collapsible" id="button_' + index + '">' + ticketHeading + '</button>');
+                    $("#results").append('<button class="collapsible" id="button_' + index + '">' + ticketHeading + ' <i class="fas fa-angle-down rotate-icon"></i></button>');
                     $("#results").append('<pre class="content"> <p>' + JSON.stringify(element, null, 2) + '</p> </pre>');
                     $("#button_" + index).on("click", function () {
                         this.classList.toggle("active");
@@ -60,21 +60,18 @@ function getAllTickets(current_page) {
                         if (content.style.maxHeight) {
                             content.style.maxHeight = null;
                         } else {
-                            $(".collapsible").each(function(index, element){
-                                const tempContent = this.nextElementSibling;
-                                tempContent.style.maxHeight = null;
+                            $(".collapsible").each(function(){
+                                this.nextElementSibling.style.maxHeight = null;
                             });
                             content.style.maxHeight = content.scrollHeight + "px";
                         }
                         this.classList.toggle("active");
                     });
                 }
-                ;
                 bool = true;
             }
         },
         error: function(xhr) {
-            console.log(xhr.responseText);
             alert(xhr.responseText);
         },
         complete: function() {
