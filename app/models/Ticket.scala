@@ -18,14 +18,15 @@ object Ticket {
       fullToken
     )
 
-  def getTicketInfoById(ticketId: Int): Try[JsValue] =
+  def getTicketInfoById(ticketId: Int): Try[JsValue] = {
     getRequest(
       url = s"https://$subDomain/api/v2/tickets/$ticketId.json",
       fullToken
     )
+  }
 
   def getRequest(url: String, token: String): Try[JsValue] = {
-    val request = Http(url).header("Authorization", s"Basic $token")
+    val request = Http(url).header("Authorization", s"Bearer $token")
     val response = request.asString
     val json = Json.parse(response.body)
     handleResponseError(json)

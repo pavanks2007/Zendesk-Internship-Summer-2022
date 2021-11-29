@@ -4,13 +4,13 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.Default.redirect(to = "/getAllTickets")
-GET     /getAllTickets              controllers.TicketRequestController.getAllTickets
-POST    /getAllTickets              controllers.TicketRequestController.postAllTickets
-GET     /getTicketInfoById          controllers.TicketRequestController.getTicketInfoById
-POST    /getTicketInfoById          controllers.TicketRequestController.postTicketInfoById
+GET    /                              controllers.Default.redirect(to = "/displayAllTicketsPage")
+GET    /displayAllTicketsPage         controllers.TicketRequestController.displayAllTicketsPage
+GET    /getAllTickets                 controllers.TicketRequestController.getAllTickets
+GET    /displayTicketInfoByIdPage     controllers.TicketRequestController.displayTicketInfoByIdPage
+GET    /getTicketInfoById/:ticketId             controllers.TicketRequestController.getTicketInfoById(ticketId: Int)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)
 
       
